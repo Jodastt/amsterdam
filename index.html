@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+       
+    <center>
+        <h1 id="hero">amsterdam</h1>
+    </center>
+    <center>
+       
+        <div class="clipText">
+            <div class="knockoutText" data-scroll-speed="2">A</div>
+            <div class="knockoutText" data-scroll-speed="3">M</div>
+            <div class="knockoutText" data-scroll-speed="6">S</div>
+            <div class="knockoutText" data-scroll-speed="5">T</div>
+            <div class="knockoutText" data-scroll-speed="7">E</div>
+            <div class="knockoutText" data-scroll-speed="3">R</div>
+            <div class="knockoutText" data-scroll-speed="4">D</div>
+            <div class="knockoutText" data-scroll-speed="1">A</div>
+            <div class="knockoutText" data-scroll-speed="6">M</div>
+        </div>    
+    </center>
+    <img src="css/images/hero_duotone.png" id="duotonetop">
+    <img src="css/images/hero.jpg" id="main">
+            <center><h1 id="headtxt" onclick="scan()">See More</h1></center>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="jquery/jquery.js"></script>
+
+<script>
+w = 0;
+x = 90;
+y = 0;
+i = .01;
+z = 1;
+
+function scan(){
+    $('#duotonetop').css('clip-path','inset(' + y + '% 0% ' + x + '% 0%)');
+    i += .02;
+    x= x - i;
+    z = z - (0.01 * (i * 2));
+    w = w + (0.01 * (i * 2));
+    
+    if (x < -10) {
+    }
+    else {
+      setTimeout(scan, 20);
+    }
+    $('#hero').css('opacity', + z);
+    $('#headtxt').css('opacity', + z);
+    $('knockoutText').css('opacity', + w);
+  }
+
+</script>
+<script>
+    $.fn.moveIt = function(){
+  var $window = $(window);
+  var instances = [];
+  
+  $(this).each(function(){
+    instances.push(new moveItItem($(this)));
+  });
+  
+  window.addEventListener('scroll', function(){
+    var scrollTop = $window.scrollTop();
+    instances.forEach(function(inst){
+      inst.update(scrollTop);
+    });
+  }, {passive: true});
+}
+
+var moveItItem = function(el){
+  this.el = $(el);
+  this.speed = parseInt(this.el.attr('data-scroll-speed'));
+};
+
+moveItItem.prototype.update = function(scrollTop){
+  this.el.css('transform', 'translateY(' + -(scrollTop / this.speed) + 'px)');
+};
+
+// Initialization
+$(function(){
+  $('[data-scroll-speed]').moveIt();
+});
+</script>
+
+</body>
+
+
+</html>
